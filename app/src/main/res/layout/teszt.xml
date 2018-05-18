@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="100dp"
+        android:id="@+id/kp"
+        android:src="@drawable/rezs_v9"
+        android:layout_centerInParent="true"
+        />
+
+
+    <ImageButton
+
+        android:id="@+id/spin"
+        android:background="@drawable/spin_httr"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:src="@drawable/ic_spin" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:paddingTop="35dp"
+        android:text=" "
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+
+</merge>

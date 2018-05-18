@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AutoPlay002</string>
+
+
+    <string name="autoplay">Auto Play</string>
+    <string name="stop_auto">Stop Auto Play</string>
+    <string name="single_win">If single win exceeds:</string>
+    <string name="balance_inc">If balance increased by:</string>
+    <string name="balance_dec">If balance decreased by:</string>
+    <string name="any_win">Stop on any win</string>
+    <string name="bonus">Stop on bonus</string>
+    <string name="jackpot">Stop on Jackpot</string>
+
+</resources>
