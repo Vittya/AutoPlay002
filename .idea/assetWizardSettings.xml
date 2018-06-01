@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_play_arrow_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_chevron_right_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,11 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="64" />
-                            <entry key="outputName" value="ic_autob" />
-                            <entry key="overrideSize" value="true" />
+                            <entry key="outputName" value="ic_jobbnyil" />
                             <entry key="sourceFile" value="W:\Mate_L\Spin\buttons_1\rezsu_v6.svg" />
-                            <entry key="width" value="64" />
                           </map>
                         </option>
                       </PersistentState>

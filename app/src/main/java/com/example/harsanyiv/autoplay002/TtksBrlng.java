@@ -2,6 +2,7 @@ package com.example.harsanyiv.autoplay002;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,13 +10,14 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class TitkosBarlang extends Activity {
+public class TtksBrlng extends Activity {
 
     private TextView msg;
     private ImageView img1, img2, img3;
     private Wheel wheel1, wheel2, wheel3;
     private Button btn;
     private boolean isStarted;
+    private int ndx=0;
 
     public static final Random RANDOM = new Random();
 
@@ -36,7 +38,25 @@ public class TitkosBarlang extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isStarted) {
+
+                msg.setText("");
+                isStarted=true;
+                handler.post(xxx);
+
+            }
+        });
+    }
+
+    Handler handler = new Handler();
+
+    Runnable xxx = new Runnable() {
+        @Override
+        public void run() {
+            if(isStarted) {
+                ndx++;
+                if (ndx < 10)
+                    handler.postDelayed(this, 100);
+                else {
                     wheel1.stopWheel();
                     wheel2.stopWheel();
                     wheel3.stopWheel();
@@ -52,8 +72,14 @@ public class TitkosBarlang extends Activity {
 
                     btn.setText("Szpinn");
                     isStarted = false;
+                    ndx=0;
+                    handler.removeCallbacks(this);
 
-                } else {
+                }
+            }
+
+
+
 
 
 
@@ -101,13 +127,13 @@ public class TitkosBarlang extends Activity {
 
                     wheel3.start();
 
-                    btn.setText("Stop");
-                    msg.setText("");
-                    isStarted = true;
+
 
 
                 }
-            }
-        });
-    }
+
+
+
+
+    };
 }

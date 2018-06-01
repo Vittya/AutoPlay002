@@ -45,10 +45,22 @@ public class Teszt extends RelativeLayout  {
         inflater.inflate(R.layout.teszt, this);
 
 
-
-
     }
 
+  public enum GombState{
 
+        FNT(R.drawable.ic_spin),
+        FNTb(R.drawable.ic_spin),
+        KZT(R.drawable.ic_spin),
+        LNT(R.drawable.ic_auto),
+        LNTb(R.drawable.ic_stop);
+
+      public int kép;
+
+      GombState(int kép){
+          this.kép=kép;
+      }
+
+    }
 
 }

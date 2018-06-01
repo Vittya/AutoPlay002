@@ -21,18 +21,23 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xw.repo.BubbleSeekBar;
 
 
 public class MainActivity extends Activity  {
 
-    ImageButton i,spin;
+    ImageButton i,spin,bal,jobb;
+    Button a,b,c,d;
     ImageView img1;
-    CardView cv;
-    TextView tv;
-    boolean m=false;
+    CardView cv,cv2;
+    TextView tv,szorzTV,betTV;
+    int[] szorzTmb = {1,2,4,6,8};
+    boolean száználNyomtál_e=false;
     FlingAnimation flingY;
+    int index=1;
+
 
     int számláló=0;
     int iii=0;
@@ -51,26 +56,23 @@ public class MainActivity extends Activity  {
         img1=findViewById(R.id.img1);
         anim= AnimationUtils.loadAnimation(this,R.anim.spinnin);
         animB=AnimationUtils.loadAnimation(this,R.anim.nagy);
-        if(savedInstanceState!=null)
-            számláló=savedInstanceState.getInt("számláló");
-        final Intent i = new Intent(this,TitkosBarlang.class);
+
+        final Intent i = new Intent(this,TtksBrlng.class);
         Button b =findViewById(R.id.ttksgmb);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               startActivity(i);
-            }
-        });
+
         gombos();
-
-
-
 
     }
 
     private Runnable xxx = new Runnable() {
         @Override
         public void run() {
+            száználNyomtál_e=true;
+
+
+        cv.setVisibility(View.GONE);
+        spin.setImageResource(R.drawable.ic_stop);
+
             if(számláló>0) {
                 számláló--;
                 tv.setText(String.valueOf(számláló));
@@ -84,6 +86,7 @@ public class MainActivity extends Activity  {
             }else{
                 handler.removeCallbacks(xxx);
                 visi(cv);
+                száználNyomtál_e=false;
                 if(getResources().getConfiguration().orientation
                         == Configuration.ORIENTATION_LANDSCAPE)
                     img1.setImageResource(R.drawable.lands);
@@ -119,10 +122,48 @@ public class MainActivity extends Activity  {
     };
 
 
+
     void gombos(){
+
         i = findViewById(R.id.x);
         cv = findViewById(R.id.cv);
-        //cv.setBackgroundResource(R.drawable.ic_launcher_background);
+        cv2 = findViewById(R.id.cv2);
+        cv2.setVisibility(View.GONE);
+        a = findViewById(R.id.btn0);
+        b = findViewById(R.id.btn1);
+        c = findViewById(R.id.btn2);
+        d = findViewById(R.id.btn3);
+        bal = findViewById(R.id.bal);
+        jobb = findViewById(R.id.jobb);
+        szorzTV = findViewById(R.id.multiTV);
+        betTV = findViewById(R.id.betTV);
+
+
+        bal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(index!=0)
+                   index--;
+
+                szorzTV.setText(String.valueOf(szorzTmb[index]));
+                bet();
+
+            }
+        });
+
+        jobb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              if(index!=szorzTmb.length-1)
+              index++;
+                szorzTV.setText(String.valueOf(szorzTmb[index]));
+                bet();
+
+            }
+        });
+
+
+
         cv.setVisibility(View.GONE);
         spin = findViewById(R.id.spin);
         tv = findViewById(R.id.tv);
@@ -134,7 +175,6 @@ public class MainActivity extends Activity  {
             @Override
             public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
                 számláló=progress;
-                tv.setText(String.valueOf(számláló));
             }
 
             @Override
@@ -152,21 +192,23 @@ public class MainActivity extends Activity  {
         spin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(m) {
-                    számláló = 0;
-                    m=false;
-                }
+
                 //ide kellhet egy zászló
                 if(cv.getVisibility()==View.VISIBLE) {
                     cv.setVisibility(View.GONE);
-                    spin.setImageResource(R.drawable.ic_stop);
-                    m=true;
-                    spin.setTag(R.drawable.ic_stop);
+                    számláló = számláló<=0 ? 20:számláló;
+
                     handler.postDelayed(xxx,100);
-                }else if(spin.getTag()!=(Integer)R.drawable.ic_stop) {
+
+                }else if(cv.getVisibility()==View.GONE&&száználNyomtál_e) {
+                    visi(cv);
+                    száználNyomtál_e = false;
+                }
+                    else  {
                     spin.startAnimation(animB);
                     iii=2;
-                   handler.post(yyy);
+                    handler.post(yyy);
+
 
                 }
             }
@@ -176,15 +218,10 @@ public class MainActivity extends Activity  {
             public boolean onTouch(View v, MotionEvent event) {
 
 
+
                 return gestureDetector.onTouchEvent(event);
             }
         });
-
-
-
-
-
-
 
     }
 
@@ -196,27 +233,49 @@ public class MainActivity extends Activity  {
         @Override
         public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY) {
 
+
+
+
             //fel le
             flingY = new FlingAnimation(spin, DynamicAnimation.TRANSLATION_Y);
             flingY.setStartVelocity(velocityY)
-                    .setMinValue(0) // legalább sebesség
+                    .setMinValue(-100) // legalább sebesség
                     .setMaxValue(100)  // legfeljebb sebesség
                     .setFriction(0.01f)
                     .setMinimumVisibleChange(0.9f)
                     .addEndListener(new DynamicAnimation.OnAnimationEndListener() {
                         @Override
                         public void onAnimationEnd(DynamicAnimation animation, boolean canceled, float value, float velocity) {
-                            //Toast.makeText(getBaseContext(),"value"+value+"veloc "+velocity,Toast.LENGTH_SHORT).show();
+
                             //findViewById(R.id.cv).setVisibility(View.GONE);
-                            v(value);
-                            if(value==100)
-                                számláló = 20;
+                    //v(value);
 
-                            else visi(0,cv);
+                        System.out.println("value"+value);
 
-                            if(cv.getVisibility()==View.VISIBLE){
-                                spin.setImageResource(R.drawable.ic_auto);
+                            if(value==100) {
+
+                                flingY.setMinValue(0).start();
+                                    if(!száználNyomtál_e){
+                                        spin.setImageResource(R.drawable.ic_auto);
+
+                                        findViewById(R.id.cv).setVisibility(View.VISIBLE);
+
+                                    }
+
+
                             }
+                            else if(value==0) {
+                                visi(0);
+                                visiFentről(0);
+                            }
+
+                            else if(value==-100) {
+                                flingY.setMaxValue(0).start();
+                                cv2.setVisibility(View.VISIBLE);
+
+                            }
+
+
 
                         }
                     })
@@ -230,19 +289,36 @@ public class MainActivity extends Activity  {
     };
 
 
-
-
-
-
+    private void bet(){
+        a.setText(String.valueOf(0.1f*szorzTmb[index]));
+        b.setText(String.valueOf(0.2f*szorzTmb[index]));
+        c.setText(String.valueOf(0.5f*szorzTmb[index]));
+        d.setText(String.valueOf(szorzTmb[index]));
+    }
 
     public void visi(View view) {
 
-            findViewById(R.id.cv).setVisibility(View.GONE);
-            flingY.setStartVelocity(-1800).start();
-            tv.setText("");
-            m=false;
+        findViewById(R.id.cv).setVisibility(View.GONE);
+        flingY.setStartVelocity(-1800).start();
+        spin.setImageResource(R.drawable.ic_spin);
+        tv.setText("");
+
     }
-    public void visi(int i,View view) {
+    public void visiFentről(View view) {
+
+        findViewById(R.id.cv2).setVisibility(View.GONE);
+        flingY.setStartVelocity(1800).start();
+        betTV.setText("Bet: ");
+
+    }
+
+    public void visiFentről(int v) {
+
+        findViewById(R.id.cv2).setVisibility(View.GONE);
+
+
+    }
+    public void visi(int i) {
 
         findViewById(R.id.cv).setVisibility(View.GONE);
         számláló=i;
@@ -260,7 +336,7 @@ public class MainActivity extends Activity  {
     @Override
     protected void onSaveInstanceState(Bundle outstate){
         super.onSaveInstanceState(outstate);
-        outstate.putInt("számláló",számláló);
+
     }
 
 
@@ -268,7 +344,7 @@ public class MainActivity extends Activity  {
     protected void onRestoreInstanceState(final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        számláló = savedInstanceState.getInt("számláló");
+
     }
 
 }

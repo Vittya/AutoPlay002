@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AutoPlay002</string>
+    <string name="app_name">Spin_Proto 001</string>
 
 
     <string name="autoplay">Auto Play</string>
@@ -10,5 +10,6 @@
     <string name="any_win">Stop on any win</string>
     <string name="bonus">Stop on bonus</string>
     <string name="jackpot">Stop on Jackpot</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

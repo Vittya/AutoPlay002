@@ -5,10 +5,10 @@
 
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_height="112dp"
         android:id="@+id/kp"
-        android:src="@drawable/rezs_v9"
+        android:src="@drawable/ic_rezsu"
         android:layout_centerInParent="true"
         />
 
@@ -19,8 +19,7 @@
         android:background="@drawable/spin_httr"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
 
         android:src="@drawable/ic_spin" />
 
